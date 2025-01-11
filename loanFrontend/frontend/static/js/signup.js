@@ -11,7 +11,7 @@ signupform.addEventListener('submit', async function(event){
     }
 
     try{
-        const response = await fetch('http://localhost:8000/api/signup',{
+        const response = await fetch('http://18.133.30.151:8000/api/signup',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -28,6 +28,7 @@ signupform.addEventListener('submit', async function(event){
     } catch(error){
         alert("Sign-up Failed due to erroe", error);
         console.log("Error messgae", error);
+
     }
 
 })

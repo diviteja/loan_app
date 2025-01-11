@@ -11,7 +11,7 @@ loandata.addEventListener('submit',async function(event){
     });
 
     try{
-        const response = await fetch('http://localhost:8000/api/eligibility_checker',{
+        const response = await fetch('http://18.133.30.151:8000/api/eligibility_checker',{
             method : 'POST',
             headers : {
                 "Content-Type": "application/json", 
@@ -32,7 +32,7 @@ loandata.addEventListener('submit',async function(event){
           }
     } catch (error) {
       resultdiv.textContent = `Network error: ${error.message}`;
-      resultDiv.className = "result error"; 
+      resultdiv.className = "result error"; 
       console.log(error);
       console.log(error.message);
     }

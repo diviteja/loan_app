@@ -1,0 +1,47 @@
+
+services:
+  backend:
+    build: 
+      context: ./loanBackend
+    container_name: loan_backend_container
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://postgres_admin:password@db:5432/loan_db
+    volumes:
+      - ./loanBackend/backend:/loan_backend
+    networks:
+      - loan_network
+  
+  frontend:
+    build: ./loanFrontend
+    container_name: loan_frontend_container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./loanFrontend/frontend:/usr/share/nginx/html
+    networks:
+      - loan_network
+  
+  db:
+    image: postgres:latest
+    container_name: postgres_container
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres_admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: loan_db
+    ports:
+      - "5433:5432"
+    networks:
+      - loan_network
+
+volumes:
+  db_data: {}
+
+networks:
+  loan_network:
+    driver: bridge

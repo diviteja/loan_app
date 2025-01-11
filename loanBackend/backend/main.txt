@@ -1,0 +1,58 @@
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import numpy as np
+import joblib
+
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.requests import Request
+
+
+app = FastAPI()
+
+
+
+
+# Load the trained model
+model = joblib.load("loan_approval_model.joblib")
+
+if hasattr(model, "monotonic_cst"):
+    del model.monotonic_cst
+
+# Define a Pydantic model for request validation
+class LoanApplication(BaseModel):
+    gender: int
+    married: int
+    dependents: int
+    education: int
+    self_employed: int
+    applicant_income: float
+    coapplicant_income: float
+    loan_amount: float
+    loan_amount_term: float
+    credit_history: float
+    property_area: int
+
+@app.post("/check_eligibility")
+async def check_eligibility(data: LoanApplication):
+    try:
+        
+        # Prepare data for prediction
+        values = [
+            data.gender, data.married, data.dependents,
+            data.education, data.self_employed, data.applicant_income,
+            data.coapplicant_income, data.loan_amount, data.loan_amount_term,
+            data.credit_history, data.property_area
+        ]
+        print(values)
+        input_data = np.array(values).reshape(1, -1)
+        
+        # Predict eligibility
+        prediction = model.predict(input_data)
+        eligibility = "Eligible" if prediction[0] == 1 else "Not Eligible"
+
+        # Return result as JSON
+        return {"eligibility": eligibility}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

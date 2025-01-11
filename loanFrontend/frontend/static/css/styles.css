@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1, h2 {
+    color: #0056b3;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    margin-right: 15px;
+    color: #0056b3;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #003d80;
+}
+
+.result{
+    margin-top: 20px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.hidden{
+    display: none;
+}
+
+.result.success{
+    background-color: #c8e6c9;  /* Light green */
+    color: #388e3c;
+    border: 2px solid #388e3c;
+}
+
+.result-error{
+    background-color: #ffcdd2;  /* Light red */
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+}
+
+.result {
+    border: 1px dashed red; /* Temporary red dashed border for debugging */
+}
